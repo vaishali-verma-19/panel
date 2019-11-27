@@ -79,12 +79,18 @@ def get_server(panel, port=0, websocket_origin=None, loop=None,
         opts['allow_websocket_origin'] = websocket_origin
 
     server_id = kwargs.pop('server_id', uuid.uuid4().hex)
-    server = Server({'/': partial(panel._modify_doc, server_id)}, port=port, **opts)
+
+    from ..config import config
+    if config.oauth_provider:
+        from ..auth import OAuthProvider
+        opts['auth_provider'] = OAuthProvider()
+    server = Server({'/': partial(panel._modify_doc, server_id)}, port=port,
+                    **opts)
     state._servers[server_id] = (server, panel, [])
 
     if show:
         def show_callback():
-            server.show('/')
+            server.show('/login' if config.oauth_provider else '/')
         server.io_loop.add_callback(show_callback)
 
     def sig_exit(*args, **kwargs):
