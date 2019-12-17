@@ -64,6 +64,8 @@ jobs:
         - source activate test-environment
         - conda install -c conda-forge mesalib
         - doit develop_install -o recommended -o tests -o build $CHANS_DEV
+        - conda remove --force nbsmoke
+        - pip install --no-deps https://github.com/pyviz-dev/nbsmoke/archive/issue35_polluting_imports.zip
         - bokeh sampledata
         - doit env_capture
       before_script:
