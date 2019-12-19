@@ -13,15 +13,9 @@ version = release = str(panel.__version__)
 html_static_path += ['_static']
 html_theme = 'sphinx_holoviz_theme'
 html_theme_options = {
-    'favicon': 'favicon.ico',
     'logo': 'logo_horizontal.png',
-    'include_logo_text': False,
-    'primary_color': '#00aa41',
-    'primary_color_dark': '#00aa41',
-    'secondary_color': '#5f9df0',
-    'custom_css': 'site.css',
-    'second_nav': True,
-    'footer': False,
+    'favicon': 'favicon.ico',
+    'css': 'site.css'    
 }
 
 extensions += ['nbsite.gallery']
