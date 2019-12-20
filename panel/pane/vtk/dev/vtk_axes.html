@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://unpkg.com/vtk.js'></script>
+    <title>VTK Axes Tests</title>
+    <style>
+        .container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+
+<script>
+vtkActor = vtk.Rendering.Core.vtkActor;
+vtkLineSource = vtk.Filters.Sources.vtkLineSource;
+vtkPlaneSource = vtk.Filters.Sources.vtkPlaneSource;
+vtkSphereMapper = vtk.Rendering.Core.vtkSphereMapper
+vtkMapper = vtk.Rendering.Core.vtkMapper
+vtkOpenGLRenderWindow = vtk.Rendering.OpenGL.vtkRenderWindow
+vtkPixelSpaceCallbackMapper = vtk.Rendering.Core.vtkPixelSpaceCallbackMapper
+vtkRenderWindow = vtk.Rendering.Core.vtkRenderWindow
+vtkRenderWindowInteractor = vtk.Rendering.Core.vtkRenderWindowInteractor
+vtkRenderer = vtk.Rendering.Core.vtkRenderer
+vtkInteractorStyleTrackballCamera = vtk.Interaction.Style.vtkInteractorStyleTrackballCamera
+const vtkFullScreenRenderWindow = vtk.Rendering.Misc.vtkFullScreenRenderWindow
+
+
+
+let dims
+
+function create_axes_label(start, end, label, axis, canvas){
+    const lineSource = vtkLineSource.newInstance({ height: 1.0, resolution: 10 });
+    lineSource.setPoint1(start)
+    lineSource.setPoint2(end)
+    const psMapper = vtkPixelSpaceCallbackMapper.newInstance();
+    psMapper.setInputConnection(lineSource.getOutputPort());
+    const textCtx = canvas.getContext("2d");
+    psMapper.setCallback((coordsList) => {
+        debugger
+        if (textCtx && dims) {
+            if (axis==0)
+                textCtx.clearRect(0, 0, dims.width, dims.height);
+            coordsList.forEach((xy, idx) => {
+                textCtx.font = '12px serif';
+                textCtx.textAlign = 'center';
+                textCtx.textBaseline = 'middle';
+                textCtx.fillText(`${label} ${idx}`, xy[0], textCtx.canvas.height - xy[1]);
+            });
+        }
+    });
+    const textActor = vtkActor.newInstance();
+    textActor.setMapper(psMapper);
+    return textActor
+}
+
+
+const fullScreenRenderer = vtkFullScreenRenderWindow.newInstance();
+const container = fullScreenRenderer.getContainer();
+
+// Canvas for 2d context (text)
+const textCanvas = document.createElement('canvas');
+textCanvas.style.position = "absolute";
+textCanvas.style.top = "0";
+textCanvas.style.left = "0";
+textCanvas.style.right = "0";
+textCanvas.style.bottom = "0";
+container.appendChild(textCanvas);
+
+const renderer = fullScreenRenderer.getRenderer();
+const renderWindow = fullScreenRenderer.getRenderWindow();
+
+
+// ----------------------------------------------------------------------------
+// Setup an interactor to handle mouse events
+// ----------------------------------------------------------------------------
+
+const interactor = renderWindow.getInteractor();
+interactor.bindEvents(container);
+// Handle window resize
+function resize() {
+  dims = container.getBoundingClientRect();
+  textCanvas.setAttribute('width', dims.width);
+  textCanvas.setAttribute('height', dims.height);
+  renderWindow.render();
+}
+
+window.addEventListener('resize', resize);
+
+const origin = [0,0,0];
+const end_x = [1,0,0];
+const end_y = [0,1,0];
+const end_z = [0,0,1];
+
+xaxis = create_axes_label(origin, end_x, 'x', 0, textCanvas);
+yaxis = create_axes_label(origin, end_y, 'y', 1, textCanvas);
+zaxis = create_axes_label(origin, end_z, 'z', 2, textCanvas);
+
+renderer.addActor(xaxis);
+renderer.addActor(yaxis);
+renderer.addActor(zaxis);
+
+
+// Add Planes
+const planXYsource = vtkPlaneSource.newInstance({ xResolution: 10, yResolution: 10 })
+const mapper
+planXYsource.setOrigin([0,0,0])
+const planYZsource = vtkPlaneSource.newInstance({ xResolution: 10, yResolution: 10 })
+planYZsource.setOrigin([0,0,0])
+const planZXsource = vtkPlaneSource.newInstance({ xResolution: 10, yResolution: 10 })
+planZXsource.setOrigin([0,0,0])
+
+
+renderer.resetCamera();
+
+
+resize();
+
+
+</script>
+</html>

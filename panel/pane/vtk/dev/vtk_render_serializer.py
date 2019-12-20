@@ -3,7 +3,6 @@ import sys
 import vtk
 from vtk.util import numpy_support
 from vtk.vtkFiltersGeometry import vtkCompositeDataGeometryFilter
-import copy
 
 py3 = sys.version_info >= (3,0)
 
@@ -35,8 +34,6 @@ javascriptMapping = {
     'f': 'Float32Array',
     'd': 'Float64Array'
 }
-
-import json
 
 class Context:
 
@@ -79,7 +76,7 @@ class VTKSerializer(Context):
     if serializer:
       return serializer(parent, instance, self)
     else:
-      raise TypeError('!!!No serializer for %s with id %s' % (instanceType))
+      raise TypeError('!!!No serializer for %s' % (instanceType))
 
     return None
 
@@ -90,7 +87,7 @@ def getJSArrayType(dataArray):
 
 def _dump_data_array(array):
 
-    if array.GetDataType() == 12:
+    if array.GetDataType() == 12 or array.GetDataType() == 16:
         # IdType need to be converted to Uint32
         arraySize = array.GetNumberOfTuples() * array.GetNumberOfComponents()
         newArray = vtk.vtkTypeUInt32Array()
@@ -606,6 +603,7 @@ VTKSerializer.registerInstanceSerializer('vtkCompositePolyDataMapper2', genericM
 # LookupTables/TransferFunctions
 VTKSerializer.registerInstanceSerializer('vtkLookupTable', lookupTableSerializer)
 VTKSerializer.registerInstanceSerializer('vtkPVDiscretizableColorTransferFunction', colorTransferFunctionSerializer)
+VTKSerializer.registerInstanceSerializer('vtkColorTransferFunction', colorTransferFunctionSerializer)
 
 # Property
 VTKSerializer.registerInstanceSerializer('vtkOpenGLProperty', propertySerializer)
