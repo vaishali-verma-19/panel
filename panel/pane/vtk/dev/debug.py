@@ -20,10 +20,9 @@ if __name__ == "__main__":
     renWin.OffScreenRenderingOn()
     renWin.Render()
 
-    rws.initializeSerializers()
-    context = rws.Context()
-    instance_to_serialize = coneActor
-    state = rws.serializeInstance(None, coneActor, rws.getReferenceId(coneActor), context)
+    context = rws.VTKSerializer()
+    state = context.serialize(None, coneActor)
 
+    res = context.todict(state)
     with open('actor.json', 'w') as f:
-        json.dump(rws.dump(state, context), f, indent=4, separators=(',', ': '), sort_keys=True)
+        json.dump(res, f, indent=2, separators=(',', ': '), sort_keys=True)
