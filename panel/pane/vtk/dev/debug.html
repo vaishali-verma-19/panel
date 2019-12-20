@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <script src='https://unpkg.com/vtk.js'></script>
+</head>
+
+<body>
+
+
+<script>
+vtkFullScreenRenderWindow = vtk.Rendering.Misc.vtkFullScreenRenderWindow
+const actorJSON = `
+{
+    "id": "2666570669704",
+    "mapper": {
+        "id": "2666570669608",
+        "inputData": [
+            {
+                "cellData": {
+                    "activeGlobalIds": -1,
+                    "activeNormals": -1,
+                    "activePedigreeIds": -1,
+                    "activeScalars": -1,
+                    "activeTCoords": -1,
+                    "activeTensors": -1,
+                    "activeVectors": -1,
+                    "arrays": [],
+                    "vtkClass": "vtkDataSetAttributes"
+                },
+                "fieldData": {
+                    "activeGlobalIds": -1,
+                    "activeNormals": -1,
+                    "activePedigreeIds": -1,
+                    "activeScalars": -1,
+                    "activeTCoords": -1,
+                    "activeTensors": -1,
+                    "activeVectors": -1,
+                    "arrays": [],
+                    "vtkClass": "vtkDataSetAttributes"
+                },
+                "id": "2666570838184",
+                "parent": "2666570669608",
+                "pointData": {
+                    "activeGlobalIds": -1,
+                    "activeNormals": -1,
+                    "activePedigreeIds": -1,
+                    "activeScalars": -1,
+                    "activeTCoords": -1,
+                    "activeTensors": -1,
+                    "activeVectors": -1,
+                    "arrays": [],
+                    "vtkClass": "vtkDataSetAttributes"
+                },
+                "points": {
+                    "dataType": "Float32Array",
+                    "name": "temp",
+                    "numberOfComponents": 3,
+                    "size": 21,
+                    "values": [
+                        0.5,
+                        -0.5,
+                        -0.5,
+                        -0.5,
+                        -0.5,
+                        -0.5,
+                        -0.5,
+                        0.0,
+                        0.5,
+                        0.25,
+                        -0.25,
+                        -0.5,
+                        -0.25,
+                        0.25,
+                        0.0,
+                        0.0,
+                        0.4330126941204071,
+                        0.4330126941204071,
+                        6.123234262925839e-17,
+                        -0.4330126941204071,
+                        -0.4330126941204071
+                    ],
+                    "vtkClass": "vtkPoints"
+                },
+                "type": "vtkPolyData",
+                "vtkClass": "vtkPolyData"
+            }
+        ],
+        "lookupTable": {
+            "id": "2666570841736",
+            "parent": "2666570669608",
+            "properties": {
+                "aboveRangeColor": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "alpha": 1.0,
+                "belowRangeColor": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "hueRange": [
+                    0.5,
+                    0
+                ],
+                "indexedLookup": 0,
+                "nanColor": [
+                    0.5,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "numberOfColors": 256,
+                "saturationRange": [
+                    1.0,
+                    1.0
+                ],
+                "useAboveRangeColor": false,
+                "useBelowRangeColor": false,
+                "valueRange": [
+                    0.0,
+                    1.0
+                ],
+                "vectorComponent": 0,
+                "vectorMode": 1,
+                "vectorSize": -1
+            },
+            "type": "vtkLookupTable",
+            "vtkClass": "vtkLookupTable"
+        },
+        "parent": "2666570669704",
+        "properties": {
+            "colorByArrayName": -1,
+            "colorMode": 0,
+            "interpolateScalarsBeforeMapping": false,
+            "scalarMode": 0,
+            "scalarRange": [
+                0.0,
+                1.0
+            ],
+            "scalarVisibility": 1,
+            "useLookupTableScalarRange": false
+        },
+        "type": "vtkOpenGLPolyDataMapper",
+        "vtkClass": "vtkMapper"
+    },
+    "parent": "140735470251232",
+    "properties": {
+        "dragable": 1,
+        "forceOpaque": false,
+        "forceTranslucent": false,
+        "origin": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "pickable": 1,
+        "position": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "scale": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "useBounds": true,
+        "visibility": 1
+    },
+    "property": {
+        "id": "2666570841160",
+        "parent": "2666570669704",
+        "properties": {
+            "ambient": 0.0,
+            "ambientColor": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "backfaceCulling": false,
+            "color": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "diffuse": 1.0,
+            "diffuseColor": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "edgeColor": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "edgeVisibility": false,
+            "frontfaceCulling": false,
+            "interpolation": 1,
+            "lighting": true,
+            "lineWidth": 1.0,
+            "opacity": 1.0,
+            "pointSize": 1.0,
+            "representation": 2,
+            "specular": 0.0,
+            "specularColor": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "specularPower": 1.0
+        },
+        "type": "vtkOpenGLProperty",
+        "vtkClass": "vtkProperty"
+    },
+    "type": "vtkOpenGLActor",
+    "vtkClass": "vtkActor"
+}
+`
+
+// ----------------------------------------------------------------------------
+// Standard rendering code setup
+// ----------------------------------------------------------------------------
+
+const fullScreenRenderer = vtkFullScreenRenderWindow.newInstance();
+const renderer = fullScreenRenderer.getRenderer();
+const renderWindow = fullScreenRenderer.getRenderWindow();
+
+// ----------------------------------------------------------------------------
+// Add actor with its pipeline into renderer
+// ----------------------------------------------------------------------------
+
+const actor = vtk(JSON.parse(actorJSON));
+
+renderer.addActor(actor);
+renderer.resetCamera();
+renderWindow.render();
+
+</script>
+</body>
+</html>
