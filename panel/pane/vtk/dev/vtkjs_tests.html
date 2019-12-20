@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://unpkg.com/vtk.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js'></script>
+    <title>Tests vtkjs</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+vtkActor = vtk.Rendering.Core.vtkActor;
+vtkLineSource = vtk.Filters.Sources.vtkLineSource;
+vtkPlaneSource = vtk.Filters.Sources.vtkPlaneSource;
+vtkPointSource = vtk.Filters.Sources.vtkPointSource;
+vtkSphereMapper = vtk.Rendering.Core.vtkSphereMapper
+vtkMapper = vtk.Rendering.Core.vtkMapper
+vtkOpenGLRenderWindow = vtk.Rendering.OpenGL.vtkRenderWindow
+vtkPixelSpaceCallbackMapper = vtk.Rendering.Core.vtkPixelSpaceCallbackMapper
+vtkRenderWindow = vtk.Rendering.Core.vtkRenderWindow
+vtkRenderWindowInteractor = vtk.Rendering.Core.vtkRenderWindowInteractor
+vtkRenderer = vtk.Rendering.Core.vtkRenderer
+vtkInteractorStyleTrackballCamera = vtk.Interaction.Style.vtkInteractorStyleTrackballCamera
+vtkFullScreenRenderWindow = vtk.Rendering.Misc.vtkFullScreenRenderWindow
+
+const fullScreenRenderer = vtkFullScreenRenderWindow.newInstance();
+const renderer = fullScreenRenderer.getRenderer();
+const renderWindow = fullScreenRenderer.getRenderWindow();
+
+const lineSource = vtkLineSource.newInstance();
+const actor = vtkActor.newInstance();
+const mapper = vtkMapper.newInstance();
+
+actor.getProperty().setPointSize(10);
+actor.getProperty().setRepresentation(0);
+
+actor.setMapper(mapper);
+mapper.setInputConnection(lineSource.getOutputPort());
+
+renderer.addActor(actor);
+renderer.resetCamera();
+renderWindow.render();
+
+
+
+</script>
+</html>
