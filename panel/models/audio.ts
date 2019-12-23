@@ -106,7 +106,7 @@ export namespace Audio {
 
 export interface Audio extends Audio.Attrs {}
 
-export abstract class Audio extends Widget {
+export class Audio extends Widget {
   properties: Audio.Props
 
   constructor(attrs?: Partial<Audio.Attrs>) {

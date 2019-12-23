@@ -114,7 +114,7 @@ export namespace Video {
 
 export interface Video extends Video.Attrs {}
 
-export abstract class Video extends Widget {
+export class Video extends Widget {
   properties: Video.Props
 
   constructor(attrs?: Partial<Video.Attrs>) {

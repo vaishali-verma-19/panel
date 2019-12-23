@@ -94,7 +94,7 @@ export namespace VideoStream {
 
 export interface VideoStream extends VideoStream.Attrs {}
 
-export abstract class VideoStream extends Widget {
+export class VideoStream extends Widget {
   properties: VideoStream.Props
 
   constructor(attrs?: Partial<VideoStream.Attrs>) {
