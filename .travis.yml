@@ -5,6 +5,9 @@ language: generic
 
 os:
   - linux
+arch:
+  - arm64
+  - amd64
 
 services:
   - xvfb
